@@ -77,25 +77,29 @@ def main():
             df["TotAct.Qty"] = df["TotAct.Qty"].str.replace(',', '')
             mask = df["TotAct.Qty"].str.endswith('-')
             df.loc[mask, "TotAct.Qty"] = '-' + df.loc[mask, "TotAct.Qty"].str[:-1]
-            df["TotAct.Qty"] = pd.to_numeric(df["TotAct.Qty"], errors='coerce')
+            df["TotAct.Qty"] = pd.to_numeric(df["TotAct.Qty"], errors='coerce').round(3)
 
             # Convert Cons._Qty. to float
             df["Cons._Qty."] = df["Cons._Qty."].str.replace(',', '')
             mask = df["Cons._Qty."].str.endswith('-')
             df.loc[mask, "Cons._Qty."] = '-' + df.loc[mask, "Cons._Qty."].str[:-1]
-            df["Cons._Qty."] = pd.to_numeric(df["Cons._Qty."], errors='coerce')
+            df["Cons._Qty."] = pd.to_numeric(df["Cons._Qty."], errors='coerce').round(3)
 
             # Convert StAdjQty to float
             df["StAdjQty"] = df["StAdjQty"].str.replace(',', '')
             mask = df["StAdjQty"].str.endswith('-')
             df.loc[mask, "StAdjQty"] = '-' + df.loc[mask, "StAdjQty"].str[:-1]
-            df["StAdjQty"] = pd.to_numeric(df["StAdjQty"], errors='coerce')
+            df["StAdjQty"] = pd.to_numeric(df["StAdjQty"], errors='coerce').round(3)
             #
             # Convert TotComScr% to float
             df["TotComScr%"] = df["TotComScr%"].str.replace(',', '')
             mask = df["TotComScr%"].str.endswith('-')
             df.loc[mask, "TotComScr%"] = '-' + df.loc[mask, "TotComScr%"].str[:-1]
             df["TotComScr%"] = pd.to_numeric(df["TotComScr%"], errors='coerce')
+
+            df["PrTgtQty"] = df["PrTgtQty"].round(3)
+            df["PrNetQty"] = df["PrNetQty"].round(3)
+
 
             print(df.dtypes)
             insert_data(df)
